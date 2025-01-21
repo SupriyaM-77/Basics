@@ -13,25 +13,27 @@ import java.util.List;
 
 public class EmployeeService {
 
-        @Autowired
-        private EmployeeRepository employeeRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-        public Employee saveEmployee(EmployeeDTO employeeDTO) {
-            Employee employee = new Employee(null, employeeDTO.getName(), employeeDTO.getDepartment(), employeeDTO.getSalary());
-            return employeeRepository.save(employee);
-        }
-
-        public List<Employee> getAllEmployees() {
-            return employeeRepository.findAll();
-        }
-
-        public Employee getEmployeeById(Long id) {
-            return employeeRepository.findById(id).orElse(null);
-        }
-
-        public void deleteEmployee(Long id) {
-            employeeRepository.deleteById(id);
-        }
+    public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee(null, employeeDTO.getName(), employeeDTO.getDepartment(), employeeDTO.getSalary());
+        Employee response = employeeRepository.save(employee);
+        employeeDTO.setId(response.getId());
+        return employeeDTO;
     }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
+
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
+    }
+}
 
 
