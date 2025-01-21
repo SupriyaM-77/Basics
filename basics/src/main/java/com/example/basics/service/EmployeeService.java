@@ -1,6 +1,7 @@
 package com.example.basics.service;
 
 
+import com.example.basics.dto.EmployeeDTO;
 import com.example.basics.model.Employee;
 import com.example.basics.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ public class EmployeeService {
         @Autowired
         private EmployeeRepository employeeRepository;
 
-        public Employee saveEmployee(Employee employee) {
+        public Employee saveEmployee(EmployeeDTO employeeDTO) {
+            Employee employee = new Employee(null, employeeDTO.getName(), employeeDTO.getDepartment(), employeeDTO.getSalary());
             return employeeRepository.save(employee);
         }
 

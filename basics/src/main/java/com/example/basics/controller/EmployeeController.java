@@ -16,8 +16,8 @@ public class EmployeeController {
 
     @PostMapping ("/")
     public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = new Employee(null, employeeDTO.getName(), employeeDTO.getDepartment(), employeeDTO.getSalary());
-        return employeeService.saveEmployee(employee);
+
+        return employeeService.saveEmployee(employeeDTO);
     }
 
     @GetMapping
