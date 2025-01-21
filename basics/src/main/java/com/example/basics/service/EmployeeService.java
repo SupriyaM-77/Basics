@@ -4,10 +4,12 @@ package com.example.basics.service;
 import com.example.basics.dto.EmployeeDTO;
 import com.example.basics.model.Employee;
 import com.example.basics.repository.EmployeeRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 
@@ -23,12 +25,23 @@ public class EmployeeService {
         return employeeDTO;
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
-    }
+//    public List<EmployeeDTO> getAllEmployees() {
+//        return employeeRepository.findAll();
+//    }
 
-    public Employee getEmployeeById(Long id) {
-        return employeeRepository.findById(id).orElse(null);
+    public EmployeeDTO getEmployeeById(Long id) {
+        Employee response = employeeRepository.findById(id).orElse(null);
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        if(Objects.nonNull(response)){
+            BeanUtils.copyProperties(response,employeeDTO);
+
+        }else{
+            //todo need to add a custom exception
+            return null;
+        }
+
+        return employeeDTO;
+
     }
 
     public void deleteEmployee(Long id) {
